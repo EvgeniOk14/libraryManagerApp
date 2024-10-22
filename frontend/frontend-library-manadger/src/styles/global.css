@@ -1,0 +1,64 @@
+/* Импорт всех файлов стилей */
+@import './ButtonElement.css';
+@import "RegisterForm.css";
+@import "AddItemForm.css";
+@import "BorrowItemForm.css";
+@import "ReturnItemForm.css";
+
+/* Основной контейнер приложения */
+.app-container {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+    /*background-color: #f4f4f4;*/
+    background-color: #FFF8DC;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Заголовок приложения */
+.app-container__title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Навигационный контейнер */
+.app-container__nav {
+    margin-bottom: 30px;
+}
+
+/* Стили для списка навигации */
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Отступы между элементами списка */
+    align-items: stretch; /* Все элементы списка растягиваются по ширине */
+}
+
+/* Стили для элементов списка */
+.nav-list__item {
+    text-align: center;
+    flex: 1; /* Каждый элемент списка будет одинаковой ширины */
+}
+
+/* Стили для ссылок в навигации */
+.nav-list__link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    width: 50%; /* Ссылка занимает всю ширину родительского элемента */
+}
+
+/* Стили при наведении на ссылки */
+.nav-list__link:hover {
+    background-color: #0056b3;
+}
+

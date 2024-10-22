@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@stomp/stompjs": "^7.0.0",
+    "cors": "^2.8.5",
+    "react-hook-form": "^7.53.0",
+    "react-router-dom": "^6.26.2",
+    "sockjs-client": "^1.6.1"
+  }
+}

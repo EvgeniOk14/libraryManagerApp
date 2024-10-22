@@ -1,0 +1,211 @@
+/* Основной контейнер формы */
+.register-form {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* Заголовок формы */
+.register-form__title {
+    color: #333;
+}
+
+/* Стили для формы */
+.register-form__form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Поля ввода */
+.register-form__input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Кнопка отправки */
+.register-form__button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Стили при наведении на кнопку */
+.register-form__button:hover {
+    background-color: #45a049;
+}
+
+/* Сообщение об ошибке или успешной регистрации */
+.register-form__message {
+    color: red;
+}
+
+/* Стили для навигационных ссылок */
+nav ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    justify-content: space-around;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    text-decoration: underline;
+    color: #333;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #e0e0e0;
+    color: #007BFF;
+}
+
+nav ul li a:active {
+    background-color: #d0d0d0;
+    color: #0056b3;
+}
+
+
+/*!* RegisterForm.css *!*/
+/*div {*/
+/*    margin: 20px;*/
+/*    padding: 20px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 8px;*/
+/*    background-color: #f9f9f9;*/
+/*}*/
+
+/*h2 {*/
+/*    color: #333;*/
+/*}*/
+
+/*form {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+
+/*input {*/
+/*    margin-bottom: 15px;*/
+/*    padding: 10px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 4px;*/
+/*}*/
+
+/*button {*/
+/*    padding: 10px;*/
+/*    background-color: #4CAF50;*/
+/*    color: white;*/
+/*    border: none;*/
+/*    border-radius: 4px;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*button:hover {*/
+/*    background-color: #45a049;*/
+/*}*/
+
+/*p {*/
+/*    color: red; !* или другой цвет по вашему выбору *!*/
+/*}*/
+
+/*!* Стили для навигационных ссылок *!*/
+/*nav ul {*/
+/*    display: flex;*/
+/*    list-style-type: none; !* Убираем точки перед списком *!*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*    justify-content: space-around; !* Горизонтальное выравнивание *!*/
+/*}*/
+
+/*nav ul li {*/
+/*    margin: 0 10px;*/
+/*}*/
+
+/*nav ul li a {*/
+/*    display: inline-block;*/
+/*    padding: 15px 30px;*/
+/*    background-color: #f0f0f0; !* Слабый серый цвет *!*/
+/*    border-radius: 10px;*/
+/*    text-decoration: underline; !* Подчеркивание *!*/
+/*    color: #333;*/
+/*    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1); !* Тень *!*/
+/*    transition: background-color 0.3s ease, color 0.3s ease; !* Плавная смена цвета *!*/
+/*}*/
+
+/*nav ul li a:hover {*/
+/*    background-color: #e0e0e0; !* Цвет при наведении *!*/
+/*    color: #007BFF; !* Изменение цвета текста при наведении *!*/
+/*}*/
+
+/*nav ul li a:active {*/
+/*    background-color: #d0d0d0; !* Цвет при клике *!*/
+/*    color: #0056b3; !* Цвет текста при клике *!*/
+/*}*/
+
+
+
+
+
+
+
+
+
+
+
+
+/*!* RegisterForm.css *!*/
+/*div {*/
+/*    margin: 20px;*/
+/*    padding: 20px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 8px;*/
+/*    background-color: #f9f9f9;*/
+/*}*/
+
+/*h2 {*/
+/*    color: #333;*/
+/*}*/
+
+/*form {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+
+/*input {*/
+/*    margin-bottom: 15px;*/
+/*    padding: 10px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 4px;*/
+/*}*/
+
+/*button {*/
+/*    padding: 10px;*/
+/*    background-color: #4CAF50;*/
+/*    color: white;*/
+/*    border: none;*/
+/*    border-radius: 4px;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*button:hover {*/
+/*    background-color: #45a049;*/
+/*}*/
+
+/*p {*/
+/*    color: red; !* или другой цвет по вашему выбору *!*/
+/*}*/
