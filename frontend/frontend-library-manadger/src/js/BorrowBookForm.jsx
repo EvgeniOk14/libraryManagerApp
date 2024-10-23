@@ -31,6 +31,7 @@ const BorrowItemForm = () => {
                     'Content-Type': 'application/json',
                 },
             });
+            alert(response.data);
             console.log(response.data); // Обработка успешного ответа
             setMessage(response.data);
         } catch (error) {

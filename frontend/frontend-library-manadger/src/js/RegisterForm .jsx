@@ -16,11 +16,15 @@ const RegisterForm = () => {
             contactInfo,
         };
 
-        try {
+        try
+        {
             const response = await axios.post('http://localhost:8080/users/register', userData);
+            alert(`Успешно зарегистрировано: ${JSON.stringify(response.data)}`);
             setMessage(`Успешно зарегистрировано: ${JSON.stringify(response.data)}`);
             navigate('/add-item');
-        } catch (error) {
+        }
+        catch (error)
+        {
             alert("ошибка: " + error.response.data);
             console.error('Ошибка при регистрации: ', error);
             setMessage('Ошибка при регистрации');

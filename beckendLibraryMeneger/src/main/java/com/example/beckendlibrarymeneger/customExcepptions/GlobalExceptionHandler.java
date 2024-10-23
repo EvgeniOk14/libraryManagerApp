@@ -104,7 +104,7 @@ public class GlobalExceptionHandler
         System.out.println("Перехвачено исключение по обработке ItemNotSaveExeption: " + ex.getMessage());
 
         // Возвращает статус OK с сообщением о том, что сохранение в базу данных вещи не осуществлёно
-        return ResponseEntity.status(HttpStatus.OK).body("Сохранение в базу данных вещи Item не осуществлёно: " + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.OK).body("Сохранение в базу данных вещи Item не осуществлено: " + ex.getMessage());
     }
 
 
@@ -121,7 +121,7 @@ public class GlobalExceptionHandler
         System.out.println("Перехвачено исключение по обработке BookNotSaveExeption: " + ex.getMessage());
 
         // Возвращает статус OK с сообщением о том, что сохранение в базу данных книги не осуществлёно
-        return ResponseEntity.status(HttpStatus.OK).body("Сохранение в базу данных книги не осуществлёно: " + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.OK).body("Сохранение в базу данных книги не осуществлено: " + ex.getMessage());
     }
 
     /**
@@ -137,7 +137,7 @@ public class GlobalExceptionHandler
         System.out.println("Перехвачено исключение по обработке DVDNotSaveExeption: " + ex.getMessage());
 
         // Возвращает статус OK с сообщением о том, что сохранение в базу данных DVD не осуществлёно
-        return ResponseEntity.status(HttpStatus.OK).body("Сохранение в базу данных DVD не осуществлёно: " + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.OK).body("Сохранение в базу данных DVD не осуществлено: " + ex.getMessage());
     }
 
 
@@ -154,7 +154,7 @@ public class GlobalExceptionHandler
         System.out.println("Перехвачено исключение по обработке MagazineNotSaveExeption: " + ex.getMessage());
 
         // Возвращает статус OK с сообщением о том, что сохранение в базу данных журнала не осуществлёно
-        return ResponseEntity.status(HttpStatus.OK).body("Сохранение в базу данных Magazine не осуществлёно: " + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.OK).body("Сохранение в базу данных Magazine не осуществлено: " + ex.getMessage());
     }
 
 
@@ -171,7 +171,7 @@ public class GlobalExceptionHandler
         System.out.println("Перехвачено исключение по обработке EbookNotSaveExeption: " + ex.getMessage());
 
         // Возвращает статус OK с сообщением о том, что сохранение в базу данных электронной книги не осуществлёно
-        return ResponseEntity.status(HttpStatus.OK).body("Сохранение в базу данных Ebook не осуществлёно: " + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.OK).body("Сохранение в базу данных Ebook не осуществлено: " + ex.getMessage());
     }
 
 
@@ -187,8 +187,23 @@ public class GlobalExceptionHandler
         // Логирует сообщение об ошибке
         System.out.println("Перехвачено исключение по обработке TransactionNotSaveExeption: " + ex.getMessage());
 
-        // Возвращает статус OK с сообщением о том, что сохранение в базу данных транзакции не осуществлёно
-        return ResponseEntity.status(HttpStatus.OK).body("Сохранение в базу данных транзакции Transaction не осуществлёно: " + ex.getMessage());
+        // Возвращает статус OK с сообщением о том, что сохранение в базу данных транзакции не осуществлено
+        return ResponseEntity.status(HttpStatus.OK).body("Сохранение в базу данных транзакции Transaction не осуществлено: " + ex.getMessage());
+    }
+
+    /**
+     * Обрабатывает исключение UserNotSaveException.
+     *
+     * @param ex исключение, которое содержит информацию об ошибке
+     * @return ResponseEntity с сообщением о том, что сохранение пользователя не осуществлено и статусом OK
+     */
+    @ExceptionHandler(UserNotSaveException.class)
+    public ResponseEntity<String> handlerUserNotSaveException(UserNotSaveException ex)
+    {
+        // Логирует сообщение об ошибке
+        System.out.println("Перехвачено исключение по обработке UserNotSaveException: " + ex.getMessage());
+        // Возвращает статус OK с сообщением о том, что сохранение в базу данных пользователя не осуществлено
+        return ResponseEntity.status(HttpStatus.OK).body("Сохранение в базу данных пользователя User не осуществлено: " + ex.getMessage());
     }
 
 }

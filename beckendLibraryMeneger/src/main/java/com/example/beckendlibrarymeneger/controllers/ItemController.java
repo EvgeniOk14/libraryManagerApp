@@ -19,11 +19,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Класс ItemController - обрабатывает методы работы с объектом класса LibraryItem.
+ * Класс ItemController - обрабатывает методы работы с объектом класса LibraryItem:
+ *  borrowItem - заём предмета
+ *  returnItem - возврат предмета
  */
 @RestController // указывает, что данный класс является контроллером
 @RequestMapping("/library/items") // указываем путь по которому будут доступны все методы этого контроллера
-@CrossOrigin(origins = "http://localhost:5173")  // Разрешаем запросы с фронтенда
+@CrossOrigin(origins = "http://localhost:5173")  // разрешаем запросы с фронтенда
 public class ItemController
 {
     //region Field
@@ -35,7 +37,7 @@ public class ItemController
     private final BorrowService borrowService; // сервис для заёма предметов из библиотеки
     private final GsonService gsonService;  // сервис для работы с Gson
     private final EmailService emailService; // сервис для уведомления пользователей по email
-    //endregion
+    //endRegion
 
     //region Constructor
     public ItemController(AbstractItemService abstractItemService, TransactionService transactionService,
@@ -53,43 +55,7 @@ public class ItemController
         this.gsonService = gsonService;
         this.emailService = emailService;
     }
-    //endregion
-
-    /**
-     * Метод addItem - добавляет новый предмет в систему.
-     *
-     * @param item Объект предмета, который будет добавлен. Данные предмета
-     *             поступают в теле запроса в формате JSON.
-     * @return ResponseEntity с сообщением об успешном добавлении предмета
-     * и статусом HTTP 200 (OK), если предмет успешно добавлен,
-     * или статусом HTTP 404 (NOT FOUND), если предмет не может быть добавлен.
-     */
-    @PostMapping("/add")
-    public ResponseEntity<String> addItem(@RequestBody LibraryItem<?> item)
-    {
-        try
-        {
-            LibraryItem<?> savedItem = abstractItemService.addItem(item);
-            return ResponseEntity.ok(savedItem.toString());
-        }
-        catch (ItemNotFoundException ex)
-        {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-        }
-    }
-
-    /**
-     * Метод getAllItems - получает список всех предметов из системы.
-     *
-     * @return ResponseEntity, содержащий список предметов и статус HTTP 200 (OK).
-     * Если предметы отсутствуют, возвращается пустой список.
-     */
-    @GetMapping("/all")
-    public ResponseEntity<List<LibraryItem<?>>> getAllItems()
-    {
-        List<LibraryItem<?>> items = abstractItemService.getAllItems();
-        return ResponseEntity.ok(items);
-    }
+    //endRegion
 
     /**
      * Метод borrowItem - обрабатывает запрос на заём предмета.
@@ -102,13 +68,13 @@ public class ItemController
      * - 404 NOT FOUND, если пользователь или предмет не найдены.
      * - 500 INTERNAL SERVER ERROR, если произошла другая ошибка во время обработки запроса.
      */
-    @Transactional(rollbackFor = Exception.class)  // Указывает, что метод должен выполняться в транзакции; при возникновении исключений транзакция будет откатана
+    @Transactional(rollbackFor = Exception.class)  // указывает, что метод должен выполняться в транзакции; при возникновении исключений транзакция будет откатана
     @PostMapping("/borrow")
     public ResponseEntity<String> borrowItem(@RequestBody String json)
     {
         try
         {
-            JsonObject jsonObject = gsonService.parseJson(json); // Вызов сервиса GsonService для десериализации строки в JsonObject
+            JsonObject jsonObject = gsonService.parseJson(json); // вызов сервиса GsonService для десериализации строки в JsonObject
 
             String isbn = jsonObject.get("isbn").getAsString(); // получаем идентификатор предмета ISBN
             String contactInfo = jsonObject.get("contactInfo").getAsString(); // получаем электронную почту пользователя
@@ -142,7 +108,7 @@ public class ItemController
 
                 borrowService.getItem(isbn, type, updatedTransaction); // устанавливаем предмету новую транзакцию
 
-                return ResponseEntity.ok(String.valueOf(updatedTransaction)); // возвращаем успешный результат о сохранённой транзакции
+                return ResponseEntity.status(HttpStatus.OK).body("Предмет: " + type + updatedTransaction.getItem() + " успешно получен срок: " + updatedTransaction.getDueDate() + " приятного пользования!"); // возвращаем успешный результат о сохранённой транзакции
             }
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Транзакция не найдена."); // выводим уведомление пользователю о том, что "Транзакция не найдена."
         }
@@ -160,6 +126,8 @@ public class ItemController
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Произошла ошибка: " + e.getMessage()); // уведомляем об ошибке
         }
     }
+
+
 
     /**
      * Метод returnItem - обрабатывает запрос на возврат предмета.
@@ -184,7 +152,7 @@ public class ItemController
 
             String contactInfo = jsonObject.get("contactInfo").getAsString(); // получение из jsonObject email пользователя
 
-            //String type = jsonObject.get("type").getAsString(); // получаем у объекта тип type
+            String type = jsonObject.get("type").getAsString(); // получаем у объекта тип type
 
             User user = userService.getUserByContactInfo(contactInfo) ; // получаем пользователя через userService и userRepository по contactInfo
 
@@ -206,7 +174,7 @@ public class ItemController
 
             if (resultMessage.equals("Предмет успешно возвращён!")) // если сообщение об успешном возврате, то:
             {
-                return ResponseEntity.ok(resultMessage); // уведомляем пользователя об успешном возврате
+                return ResponseEntity.status(HttpStatus.OK).body("Предмет: " + type + " успешно возвращён в срок! Благодарим Вас за своевременный возврат!"); // уведомляем пользователя об успешном возврате
             }
             else // если сообщение о неуспешном возврате, то:
             {
@@ -226,6 +194,21 @@ public class ItemController
             e.printStackTrace(); // для отладки
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Произошла ошибка: " + e.getMessage()); // уведомляем об ошибке
         }
+    }
+
+
+
+    /**
+     * Метод getAllItems - получает список всех предметов из системы.
+     *
+     * @return ResponseEntity, содержащий список предметов и статус HTTP 200 (OK).
+     * Если предметы отсутствуют, возвращается пустой список.
+     */
+    @GetMapping("/all")
+    public ResponseEntity<List<LibraryItem<?>>> getAllItems()
+    {
+        List<LibraryItem<?>> items = abstractItemService.getAllItems();
+        return ResponseEntity.ok(items);
     }
 }
 
