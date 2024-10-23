@@ -9,6 +9,8 @@ import jakarta.websocket.server.ServerEndpoint; // импорт аннотаци
 @ServerEndpoint("/notifications") // определяем конечную точку для веб-сокета
 public class NotificationWebSocket
 {
+    private static Session session; // храним последнюю активную сессию
+
     /**
      * Метод вызывается, когда устанавливается соединение с клиентом.
      *
@@ -17,8 +19,8 @@ public class NotificationWebSocket
     @OnOpen
     public void onOpen(Session session)
     {
+        NotificationWebSocket.session = session; // сохраняем сессию
         System.out.println("Соединение открыто: " + session.getId()); // печатаем ID открытой сессии
-        // здесь можно добавить логику, например, отправить приветственное сообщение
         session.getAsyncRemote().sendText("Соединение установлено. ID: " + session.getId()); // отправляем приветственное сообщение клиенту
     }
 
@@ -32,8 +34,6 @@ public class NotificationWebSocket
     public void onMessage(String message, Session session)
     {
         System.out.println("Получено сообщение от клиента: " + message); // печатаем полученное сообщение
-        // Здесь можно обработать входящее сообщение
-        // Например, отправить подтверждение или ответ
         session.getAsyncRemote().sendText("Сообщение получено: " + message); // отправляем ответ клиенту
     }
 
@@ -47,7 +47,6 @@ public class NotificationWebSocket
     public void onError(Session session, Throwable throwable)
     {
         System.err.println("Ошибка в сессии " + session.getId() + ": " + throwable.getMessage()); // печатаем сообщение об ошибке
-        // отправляем уведомление об ошибке клиенту
         session.getAsyncRemote().sendText("Ошибка: " + throwable.getMessage()); // уведомляем клиента об ошибке
     }
 
@@ -61,6 +60,14 @@ public class NotificationWebSocket
     public void onClose(Session session, CloseReason reason)
     {
         System.out.println("Соединение закрыто: " + session.getId() + " Причина: " + reason); // печатаем ID закрытой сессии и причину
-        // здесь можно выполнить дополнительные действия, например, уведомить других клиентов о закрытии соединения
+    }
+
+    // Статический метод для отправки сообщений из других классов
+    public static void sendNotification(String message)
+    {
+        if (session != null && session.isOpen())
+        {
+            session.getAsyncRemote().sendText(message); // отправляем сообщение клиенту
+        }
     }
 }

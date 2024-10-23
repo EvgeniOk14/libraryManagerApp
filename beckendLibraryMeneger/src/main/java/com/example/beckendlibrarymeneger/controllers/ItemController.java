@@ -8,6 +8,7 @@ import com.example.beckendlibrarymeneger.interfaces.AbstractRepository;
 import com.example.beckendlibrarymeneger.interfaces.TransactionRepository;
 import com.example.beckendlibrarymeneger.models.*;
 import com.example.beckendlibrarymeneger.service.*;
+import com.example.beckendlibrarymeneger.socketManager.NotificationWebSocket;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import org.springframework.http.HttpStatus;
@@ -108,6 +109,9 @@ public class ItemController
 
                 borrowService.getItem(isbn, type, updatedTransaction); // устанавливаем предмету новую транзакцию
 
+                // Отправка уведомления через WebSocket
+                NotificationWebSocket.sendNotification("Предмет успешно взят в аренду: " + isbn + ". Пользователь: " + contactInfo); // отправка сообщения через web-Socket
+
                 return ResponseEntity.status(HttpStatus.OK).body("Предмет: " + type + updatedTransaction.getItem() + " успешно получен срок: " + updatedTransaction.getDueDate() + " приятного пользования!"); // возвращаем успешный результат о сохранённой транзакции
             }
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Транзакция не найдена."); // выводим уведомление пользователю о том, что "Транзакция не найдена."
@@ -174,6 +178,8 @@ public class ItemController
 
             if (resultMessage.equals("Предмет успешно возвращён!")) // если сообщение об успешном возврате, то:
             {
+                NotificationWebSocket.sendNotification("Предмет успешно возвращен: " + isbn + ". Пользователь: " + contactInfo); // Отправка уведомления через WebSocket
+
                 return ResponseEntity.status(HttpStatus.OK).body("Предмет: " + type + " успешно возвращён в срок! Благодарим Вас за своевременный возврат!"); // уведомляем пользователя об успешном возврате
             }
             else // если сообщение о неуспешном возврате, то:
